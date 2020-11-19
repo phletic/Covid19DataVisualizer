@@ -3,14 +3,17 @@ import matplotlib.dates as mdates
 import pandas as pd
 from tkinter import messagebox
 
-class graphException():
+class graphException:
     def __init__(self, message):
+        super().__init__()
         self.message = message
         messagebox.showerror(title="graph error", message="graph manager says: " + str(self.message))
+        return
 
 
 class graph:
     def __init__(self,isgrid,useBaseTen,useLegend):
+        self.isShowing = False
         self.currentXAxis = ''
         CovidData = pd.read_csv("covid19Data/CovidData.csv", parse_dates=True)
         CovidData.date = pd.to_datetime(CovidData.date)
@@ -58,7 +61,7 @@ class graph:
 
 if __name__ == '__main__':
     stats= graph(isgrid=False,useBaseTen=True,useLegend=True)
-    stats.plotLine(x=("World","date"),y=("World","total_cases"),colour=(1,0,0),useMarker=False)
+    stats.plotLine(x=("World","date"),y=("World","total_cases"),colour=(1,0.25,0),useMarker=False)
     stats.show()
     #CovidData.date = pd.to_datetime(CovidData.date)
     # options

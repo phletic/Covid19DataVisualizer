@@ -108,20 +108,23 @@ class graphCreator(tkinter.Frame):
         self.elements.add()
 
     def showGraph(self):
-        result = graph(isgrid=True if self.isGrid.get() == 1 else False,
-                       useBaseTen=True if self.isBaseTen.get() == 1 else False,
-                       useLegend=True if self.isShowLegend.get() == 1 else False)
         #result.plotLine(x=("World", "date"), y=("World", "total_cases"), colour="red", useMarker=False)
         #result.plotLine(x=("World", "date"), y=("World", "total_deaths"), colour="grey", useMarker=False)
         print(self.elements.elements)
+        elements = []
         for i in self.elements.elements:
-            print(i)
             print(i.selctCountry.get(),i.selectDataX.get(),i.selectDataY.get(),i.RedEntry.get(),i.BlueEntry.get(),i.GreenEntry.get())
             try:
-                result.plotLine(x=(i.selctCountry.get(), i.selectDataX.get()), y=(i.selctCountry.get(), i.selectDataY.get())
-                                ,colour=(int(i.RedEntry.get()), int(i.GreenEntry.get()), int(i.BlueEntry.get())),
-                                useMarker=False)
+                elements.append([(i.selctCountry.get(), i.selectDataX.get()), (i.selctCountry.get(), i.selectDataY.get())
+                                ,(float(i.RedEntry.get()), float(i.GreenEntry.get()), float(i.BlueEntry.get())),
+                                False])
             except ValueError:
                 graphException("some values is of null")
                 return
+        result = graph(isgrid=True if self.isGrid.get() == 1 else False,
+                       useBaseTen=True if self.isBaseTen.get() == 1 else False,
+                       useLegend=True if self.isShowLegend.get() == 1 else False)
+        for i in elements:
+            print(*i)
+            result.plotLine(*i)
         result.show()

@@ -16,7 +16,7 @@ if __name__ == '__main__':
     root.resizable(0, 0)
     syncClass = Title(root)
     syncClass.grid()
-    root.title("A simple GUI")
+    root.title("Covid-19 visualizer")
     syncClass = syncer(root)
     syncClass.grid()
     test = graphCreator(root)
