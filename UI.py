@@ -2,7 +2,9 @@ import tkinter
 from syncCovidData import writeSyncing
 from syncerUI import syncer
 from graphCreatorUI import graphCreator
-#driver code
+from multiprocessing import freeze_support
+#asdasdasd
+# driver code
 class Title(tkinter.Frame):
     def __init__(self, master):
         super().__init__(master)
@@ -10,7 +12,9 @@ class Title(tkinter.Frame):
         self.testText = tkinter.Label(self.master, text="Covid 19 Interactive Data (realtime)", font=("Arial", 25))
         self.testText.grid(row=0, column=0, columnspan=20)
 
+
 if __name__ == '__main__':
+    freeze_support()
     writeSyncing(False)  # you are not syncing the data set rn
     root = tkinter.Tk()
     root.resizable(0, 0)

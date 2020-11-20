@@ -3,18 +3,18 @@ import matplotlib.dates as mdates
 import pandas as pd
 from tkinter import messagebox
 
+
 class graphException:
     def __init__(self, message):
         super().__init__()
         self.message = message
-        messagebox.showerror(title="graph error", message="graph manager says: " + str(self.message))
+        messagebox.showerror(title="fatal error while graphing", message="graph manager says: " + str(self.message))
         return
 
 
 class graph:
-    def __init__(self,isgrid,useBaseTen,useLegend):
+    def __init__(self, isgrid, useBaseTen, useLegend):
         self.isShowing = False
-        self.currentXAxis = ''
         CovidData = pd.read_csv("covid19Data/CovidData.csv", parse_dates=True)
         CovidData.date = pd.to_datetime(CovidData.date)
         self.fig, self.ax = plt.subplots()
@@ -26,29 +26,22 @@ class graph:
             plt.ticklabel_format(style='plain', axis='x')
             plt.ticklabel_format(style='plain', axis='y')
 
+    def getStat(self, location, id):
+        return self.data[self.data["location"] == location][id]
 
-    def getStat(self,location,id):
-        try:
-            return self.data[self.data["location"]==location][id]
-        except:
-            graphException("Value given is not in data set")
-            return
-    def plotLine(self,x,y,colour,useMarker):
-        xGraph = self.getStat(x[0],x[1])
-        yGraph = self.getStat(y[0],y[1])
-        ico = self.getStat(x[0],"iso_code").iloc[0]
-        if not self.currentXAxis:
-            self.currentXAxis = x[1]
-        if x[1] != self.currentXAxis:
-            graphException("x axis not consistent")
-        self.ax.plot(xGraph,yGraph,label=f'{ico}: {y[1].replace("_"," ")} over {x[1].replace("_"," ")}',color=colour,marker="o"if useMarker == True else '')
+    def plotLine(self, x, y, colour, useMarker):
+        xGraph = self.getStat(x[0], x[1])
+        yGraph = self.getStat(y[0], y[1])
+        ico = self.getStat(x[0], "iso_code").iloc[0]
+        self.ax.plot(xGraph, yGraph, label=f'{ico}: {y[1].replace("_", " ")} over {x[1].replace("_", " ")}',
+                     color=colour, marker="o" if useMarker == True else '')
 
-
-    def plotBar(self,x,y,colour):
-        xGraph = self.getStat(x[0],x[1])
-        yGraph = self.getStat(y[0],y[1])
-        ico = self.getStat(x[0],"iso_code").iloc[0]
-        self.ax.bar(xGraph,yGraph,label=f'{ico}: {y[1].replace("_"," ")} over {x[1].replace("_"," ")}',color=colour)
+    def plotBar(self, x, y, colour,useMarker):
+        xGraph = self.getStat(x[0], x[1])
+        yGraph = self.getStat(y[0], y[1])
+        ico = self.getStat(x[0], "iso_code").iloc[0]
+        self.ax.bar(xGraph, yGraph, label=f'{ico}: {y[1].replace("_", " ")} over {x[1].replace("_", " ")}',
+                    color=colour)
 
     def show(self):
         if self.useLegend:
@@ -60,10 +53,10 @@ class graph:
         plt.show()
 
 if __name__ == '__main__':
-    stats= graph(isgrid=False,useBaseTen=True,useLegend=True)
-    stats.plotLine(x=("World","date"),y=("World","total_cases"),colour=(1,0.25,0),useMarker=False)
+    stats = graph(isgrid=False, useBaseTen=True, useLegend=True)
+    stats.plotBar(("World", "date"), ("World", "total_cases"), (1, 0.25, 0), False)
     stats.show()
-    #CovidData.date = pd.to_datetime(CovidData.date)
+    # CovidData.date = pd.to_datetime(CovidData.date)
     # options
     # isgrid
     # location

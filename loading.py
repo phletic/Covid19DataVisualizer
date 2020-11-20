@@ -4,7 +4,8 @@ import os
 
 root = Tk()
 frameCnt = 12
-frames = [PhotoImage(file='200.gif',format = 'gif -index %i' %(i)) for i in range(frameCnt)]
+frames = [PhotoImage(file='200.gif', format='gif -index %i' % (i)) for i in range(frameCnt)]
+
 
 def update(ind):
     frame = frames[ind]
@@ -13,6 +14,7 @@ def update(ind):
         ind = 0
     label.configure(image=frame)
     root.after(100, update, ind)
+
 
 label = Label(root)
 label.pack()

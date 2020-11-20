@@ -52,10 +52,10 @@ def sync(url="https://covid.ourworldindata.org/data/owid-covid-data.csv", dataTo
     statistics = [i for i in covid19.columns]
     statistics.remove("iso_code")
     statistics.remove("location")
-    with open("covid19Data/Variables","wb") as f:
-        pickle.dump(statistics,f)
+    with open("covid19Data/Variables", "wb") as f:
+        pickle.dump(statistics, f)
     with open("covid19Data/Countries", "wb") as f:
-        pickle.dump(countries,f)
+        pickle.dump(countries, f)
     dataFrames = []
     for i in countries:
         # data cleaning
@@ -91,7 +91,7 @@ def sync(url="https://covid.ourworldindata.org/data/owid-covid-data.csv", dataTo
         dataFrames.append(Country)
     dataFrames = pd.concat(dataFrames)
     dataFrames.date = pd.to_datetime(dataFrames.date)
-    dataFrames.to_csv(r'D:\python\PycharmProjects\DataScienceAndMath\covid19Data\CovidData.csv', index=False,
+    dataFrames.to_csv(r'covid19Data\CovidData.csv', index=False,
                       header=True)
     writeSyncing(False)
     return

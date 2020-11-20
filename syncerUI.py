@@ -4,16 +4,18 @@ import tkinter
 import multiprocessing
 from datetime import datetime
 from syncCovidData import sync, isSyncingNow
+
+
 class syncer(tkinter.Frame):
     def __init__(self, master):
-        super().__init__(master,relief=tkinter.GROOVE,bd=1)
+        super().__init__(master, relief=tkinter.GROOVE, bd=1)
         self.grid()
         self.loadWidgets()
         self.setDateTime()
 
     def loadWidgets(self):
         self.Title = tkinter.Label(self, text="sync data")
-        self.Title.grid(row=0 , column=0 )
+        self.Title.grid(row=0, column=0)
 
         self.syncButton = tkinter.Button(self, text="click here to sync", command=self.sync)
         self.syncButton.grid(row=0, column=1)
@@ -48,6 +50,8 @@ class syncer(tkinter.Frame):
 
     def loading(self):
         self.last_sync['text'] = "syncing now"
+
+
 class loadingScreen():
     def __init__(self, func):
         self.func = func
@@ -91,5 +95,6 @@ def checkSync():
     loadingScreen(isSyncingNow)
     print("done")
     return
+
 
 processes = [multiprocessing.Process(target=sync), multiprocessing.Process(target=checkSync)]
