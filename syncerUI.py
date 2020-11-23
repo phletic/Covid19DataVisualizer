@@ -5,7 +5,6 @@ import multiprocessing
 from datetime import datetime
 from syncCovidData import sync, isSyncingNow
 
-
 class syncer(tkinter.Frame):
     def __init__(self, master):
         super().__init__(master, relief=tkinter.GROOVE, bd=1)
@@ -50,7 +49,6 @@ class syncer(tkinter.Frame):
 
     def loading(self):
         self.last_sync['text'] = "syncing now"
-
 
 class loadingScreen():
     def __init__(self, func):

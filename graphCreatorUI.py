@@ -37,7 +37,6 @@ class graphCreator(tkinter.Frame):
                 self.GraphType = ttk.Combobox(self, values=self.options, width=35)
                 self.GraphType.grid(row=3, column=1, columnspan=6)
 
-
                 tkinter.Label(self, text="red (0-1)").grid(row=4, column=0)
                 self.RedEntry = tkinter.Entry(self, width=5)
                 self.RedEntry.grid(row=4, column=1)

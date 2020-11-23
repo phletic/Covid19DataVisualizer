@@ -1,8 +1,10 @@
+import os
 import tkinter
 from syncCovidData import writeSyncing
 from syncerUI import syncer
 from graphCreatorUI import graphCreator
 from multiprocessing import freeze_support
+
 #asdasdasd
 # driver code
 class Title(tkinter.Frame):
@@ -15,6 +17,10 @@ class Title(tkinter.Frame):
 
 if __name__ == '__main__':
     freeze_support()
+    if not os.path.exists('covid19Data'):
+        os.mkdir("covid19Data")
+    if not os.path.exists('covid19Data/presets'):
+        os.mkdir('covid19Data/presets')
     writeSyncing(False)  # you are not syncing the data set rn
     root = tkinter.Tk()
     root.resizable(0, 0)
